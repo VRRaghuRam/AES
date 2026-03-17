@@ -13,25 +13,25 @@ AES operates on a 4 × 4 column-major order array of bytes, termed the state
 ```
 #include <stdio.h>
 #include <string.h>
-
 void xor_encrypt_decrypt(char *input, char *key) {
     int input_len = strlen(input);
     int key_len = strlen(key);
     for (int i = 0; i < input_len; i++) {
-        input[i] = input[i] ^ key[i % key_len];
+        input[i] ^= key[i % key_len];
     }
 }
-
 int main() {
     char url[] = "RaghuRam";
-    char key[] = "secretkey";
-    
+   char key[] = "secretkey";
     printf("Original text: %s\n", url);
     xor_encrypt_decrypt(url, key);
-    printf("Encrypted text: %s\n", url);
+    printf("Encrypted text (hex): ");
+    for (int i = 0; i < strlen(url); i++) {
+        printf("%02X ", (unsigned char)url[i]);
+    }
+    printf("\n");
     xor_encrypt_decrypt(url, key);
     printf("Decrypted text: %s\n", url);
-
     return 0;
 }
 ```
